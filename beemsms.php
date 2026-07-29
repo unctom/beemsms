@@ -503,12 +503,14 @@ function beemShowTab(k) {
     echo '</table>'
         . '<p style="margin-top:8px;">Merge fields: <code>{firstname}</code> <code>{lastname}</code> <code>{client}</code> (full name) <code>{companyname}</code> (client\'s company) <code>{mycompany}</code> (your company) <code>{invoicenum}</code> <code>{amount}</code> <code>{total}</code> (invoice total) <code>{balance}</code> (amount still owed) <code>{duedate}</code> <code>{link}</code> <code>{service}</code> <code>{ticketid}</code> <code>{reminder}</code>.<br>'
         . 'On payment events {amount} is the amount just paid. Keep messages near 160 characters — longer texts are billed as multiple segments. Special characters are automatically converted to SMS-safe ones.</p>'
-        . '<button type="submit" class="btn btn-primary">Save templates</button> '
+        . '<div style="display:flex; gap:15px; align-items:center; margin-top:15px;">'
+        . '<button type="submit" class="btn btn-primary">Save templates</button>'
         . '</form>'
-        . '<form method="post" action="' . $e($modulelink) . '" style="display:inline; margin-left:15px;" onsubmit="return confirm(\'Replace ALL templates with the defaults?\');">'
+        . '<form method="post" action="' . $e($modulelink) . '" style="margin:0;" onsubmit="return confirm(\'Are you sure? This will permanently replace ALL of your custom templates with the original defaults.\');">'
         . '<input type="hidden" name="beem_action" value="reset_templates">'
-        . '<button type="submit" class="btn btn-default">Restore default templates</button>'
-        . '</form></div>';
+        . '<button type="submit" class="btn btn-danger btn-outline" style="background:transparent; color:#d9534f;">Restore default templates</button>'
+        . '</form>'
+        . '</div></div>';
 
     echo '<div class="beem-pane" id="beem-pane-send" style="padding-top:15px;' . ($activeTab === 'send' ? '' : 'display:none;') . '">';
     if ($sendInlineNotice !== '') {
