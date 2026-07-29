@@ -50,8 +50,7 @@ add_hook('DailyCronJob', 1, function ($vars) {
         if ($threshold > 0 && $adminPhone !== ''
             && $balance['success'] && $balance['balance'] !== null && (float) $balance['balance'] < $threshold
         ) {
-            $countryCode = isset($settings['country_code']) ? $settings['country_code'] : '255';
-            $phone = Sender::normalize($adminPhone, $countryCode);
+            $phone = Sender::normalize($adminPhone, '255');
             if ($phone) {
                 Sender::sendRaw(
                     $phone,

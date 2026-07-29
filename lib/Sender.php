@@ -174,8 +174,7 @@ class Sender
                 return;
             }
 
-            $countryCode = isset($settings['country_code']) ? $settings['country_code'] : '255';
-            $phone = self::normalize($row->phonenumber, $countryCode);
+            $phone = self::normalize($row->phonenumber, '255');
             if (!$phone) {
                 self::log($clientId, $eventKey, '', '', 'no_phone', null, 'Client has no usable phone number');
 
