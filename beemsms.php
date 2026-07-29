@@ -59,13 +59,7 @@ function beemsms_config()
                 'Size' => '20',
                 'Description' => 'Your approved Beem sender name (max 11 characters).',
             ],
-            'country_code' => [
-                'FriendlyName' => 'Default country code',
-                'Type' => 'text',
-                'Size' => '6',
-                'Default' => '255',
-                'Description' => 'Used to normalize local numbers, e.g. 0745... becomes 255745...',
-            ],
+
             'admin_phone' => [
                 'FriendlyName' => 'Admin mobile',
                 'Type' => 'text',
@@ -270,7 +264,7 @@ function beemsms_output($vars)
 
     if ($action === 'send_test') {
         $settings = Sender::moduleSettings();
-        $phone = Sender::normalize(isset($_POST['test_phone']) ? $_POST['test_phone'] : '', isset($settings['country_code']) ? $settings['country_code'] : '255');
+        $phone = Sender::normalize(isset($_POST['test_phone']) ? $_POST['test_phone'] : '', '255');
         $message = trim(isset($_POST['test_message']) ? $_POST['test_message'] : '');
         if (!$phone) {
             $notice = 'That phone number does not look valid after normalization.';
@@ -512,7 +506,10 @@ function beemShowTab(k) {
     echo '<div class="beem-pane" id="beem-pane-logs" style="padding-top:15px;' . ($activeTab === 'logs' ? '' : 'display:none;') . '">'
         . '<form method="post" action="' . $e($modulelink) . '" class="form-inline" style="margin-bottom:12px;">'
         . '<input type="hidden" name="beem_action" value="send_test">'
-        . '<input type="text" name="test_phone" class="form-control" placeholder="0745... or 2557..." style="width:180px;"> '
+        . '<div class="input-group" style="width:200px; display:inline-table; vertical-align:middle; margin-right:4px;">'
+        . '<span class="input-group-addon">+255</span>'
+        . '<input type="text" name="test_phone" class="form-control" placeholder="746 789 890">'
+        . '</div>'
         . '<input type="text" name="test_message" class="form-control" placeholder="Message" style="width:420px;"> '
         . '<button type="submit" class="btn btn-default">Send SMS</button>'
         . '</form>'
