@@ -252,7 +252,11 @@ function beemsms_output($vars)
 
     if ($action === 'reset_templates') {
         foreach (Events::all() as $key => $meta) {
-            $update = ['template' => $meta['template']];
+            $update = [
+                'template' => $meta['template'],
+                'enabled' => (int) $meta['enabled'],
+                'client_can_optout' => (int) $meta['client_can_optout'],
+            ];
             if ($hasAdminColumn) {
                 $update['admin_template'] = $meta['admin_template'];
             }
@@ -499,7 +503,7 @@ function beemShowTab(k) {
         . 'On payment events {amount} is the amount just paid. Keep messages near 160 characters — longer texts are billed as multiple segments. Special characters are automatically converted to SMS-safe ones.</p>'
         . '<button type="submit" class="btn btn-primary">Save templates</button> '
         . '</form>'
-        . '<form method="post" action="' . $e($modulelink) . '" style="display:inline;" onsubmit="return confirm(\'Replace ALL templates with the defaults?\');">'
+        . '<form method="post" action="' . $e($modulelink) . '" style="display:inline; margin-left:15px;" onsubmit="return confirm(\'Replace ALL templates with the defaults?\');">'
         . '<input type="hidden" name="beem_action" value="reset_templates">'
         . '<button type="submit" class="btn btn-default">Restore default templates</button>'
         . '</form></div>';
