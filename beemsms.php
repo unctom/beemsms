@@ -382,12 +382,12 @@ function beemsms_output($vars)
             . '</form>';
     }
     if ($updateStatus['has_backup']) {
-        $updateActionHtml .= ' <form method="post" action="' . $e($modulelink) . '" style="display:inline;" '
-            . 'onsubmit="return confirm(\'Roll back to the previously installed version?\');">'
+        $updateActionHtml .= ' <div style="margin-top:10px;"><span class="text-muted" style="font-size:11px;">Having issues?</span> <form method="post" action="' . $e($modulelink) . '" style="display:inline;" '
+            . 'onsubmit="return confirm(\'Roll back to the previously installed version? This will overwrite current files.\');">'
             . '<input type="hidden" name="beem_action" value="rollback_update">'
             . '<input type="hidden" name="tab" value="' . $e($activeTab) . '">'
-            . '<button type="submit" class="btn btn-default btn-xs">Roll back</button>'
-            . '</form>';
+            . '<button type="submit" class="btn btn-danger btn-xs" style="padding:1px 5px; font-size:10px;">Roll back</button>'
+            . '</form></div>';
     }
 
     $balanceInfo = $configured ? Sender::cachedBalance() : ['balance' => null, 'success' => false, 'checked_at' => null];
