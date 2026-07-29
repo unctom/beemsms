@@ -266,26 +266,29 @@ function beemsms_output($vars)
         $activeTab = 'templates';
     }
 
+    $sendInlineNotice = '';
+    $sendInlineClass = '';
     if ($action === 'send_test') {
         $settings = Sender::moduleSettings();
         $phone = Sender::normalize(isset($_POST['test_phone']) ? $_POST['test_phone'] : '', '255');
         $message = trim(isset($_POST['test_message']) ? $_POST['test_message'] : '');
         if (!$phone) {
-            $notice = 'That phone number does not look valid after normalization.';
-            $noticeClass = 'danger';
+            $sendInlineNotice = 'That phone number does not look valid after normalization.';
+            $sendInlineClass = 'danger';
         } elseif ($message === '') {
-            $notice = 'Enter a message to send.';
-            $noticeClass = 'danger';
+            $sendInlineNotice = 'Enter a message to send.';
+            $sendInlineClass = 'danger';
         } else {
             $result = Sender::sendRaw($phone, $message, 'manual');
             if ($result['success']) {
-                $notice = 'Message submitted to Beem for ' . $phone . ' (request ' . $e(isset($result['request_id']) ? $result['request_id'] : '-') . ').';
+                $sendInlineNotice = 'Message submitted to Beem for ' . $phone . ' (request ' . $e(isset($result['request_id']) ? $result['request_id'] : '-') . ').';
+                $sendInlineClass = 'success';
             } else {
-                $notice = 'Beem rejected the message: ' . $e(isset($result['message']) ? $result['message'] : 'unknown error');
-                $noticeClass = 'danger';
+                $sendInlineNotice = 'Beem rejected the message: ' . $e(isset($result['message']) ? $result['message'] : 'unknown error');
+                $sendInlineClass = 'danger';
             }
         }
-        $activeTab = 'logs';
+        $activeTab = 'send';
     }
 
     if ($action === 'resend') {
