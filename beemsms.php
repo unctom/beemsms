@@ -443,7 +443,8 @@ function beemShowTab(k) {
     $tabs = [
         'events' => 'Events',
         'templates' => 'Templates',
-        'logs' => 'Logs & sending',
+        'send' => 'Send SMS',
+        'logs' => 'Logs',
         'api' => 'API responses',
     ];
 
