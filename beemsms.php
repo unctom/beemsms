@@ -357,7 +357,8 @@ function beemsms_output($vars)
     $logs = Capsule::table('mod_beemsms_log')->orderBy('id', 'desc')->limit(50)->get();
 
     if ($notice !== '') {
-        echo '<div class="alert alert-' . $noticeClass . '" style="margin-top:10px;">' . $notice . '</div>';
+        echo '<div id="beem-notice" class="alert alert-' . $noticeClass . '" style="margin-top:10px;">' . $notice . '</div>'
+            . '<script>setTimeout(function(){ var el = document.getElementById("beem-notice"); if (el) el.style.display = "none"; }, 5000);</script>';
     }
 
     $updateStatus = Updater::status();
