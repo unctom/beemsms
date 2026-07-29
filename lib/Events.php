@@ -65,7 +65,7 @@ class Events
                 'admin_template' => 'Late fee added to invoice {invoicenum} for {client}. New total: {amount}.',
                 'enabled' => 1,
                 'notify_admin' => 0,
-                'client_can_optout' => 1,
+                'client_can_optout' => 0,
             ],
             'service_created' => [
                 'label' => 'Service activated',
