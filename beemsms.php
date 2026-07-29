@@ -418,15 +418,14 @@ function beemsms_output($vars)
             : '<span class="label label-danger">Not configured</span> — set your API key, secret key and sender ID in System Settings &gt; Addon Modules &gt; Beem SMS &gt; Configure.')
         . ' <span class="label label-default">Sender: ' . $e(isset($settings['sender_id']) ? $settings['sender_id'] : '-') . '</span> '
         . $balanceChip
-        . ' <span class="label label-default">v' . $e(UpdateChecker::VERSION) . '</span>'
-        . $updateHtml
-        . ' <form method="post" action="' . $e($modulelink) . '" style="display:inline;">'
+        . ' <span class="label label-default">v' . $e($displayVersion) . '</span>'
+        . $updateActionHtml
+        . ' <form method="post" action="' . $e($modulelink) . '" style="display:inline; margin-left:5px;">'
         . '<input type="hidden" name="beem_action" value="check_update">'
         . '<input type="hidden" name="tab" value="' . $e($activeTab) . '">'
-        . '<button type="submit" class="btn btn-default btn-xs">Check for updates</button>'
+        . '<button type="submit" class="btn btn-default btn-xs" style="padding:1px 5px; font-size:11px;" title="Check for updates">&#8635;</button>'
         . '</form>'
-        . $updateActionHtml
-        . ' <span class="text-muted" style="margin-left:8px;">Clients manage preferences at <code>index.php?m=beemsms</code></span>'
+        . ' <span style="margin-left:8px; font-size:12px;"><a href="index.php?m=beemsms" target="_blank" style="color:#666; text-decoration:underline;">Client preferences area &rarr;</a></span>'
         . '</p>';
 
     echo '<script>
