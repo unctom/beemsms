@@ -16,7 +16,7 @@ use WHMCS\Database\Capsule;
 
 class UpdateChecker
 {
-    const VERSION = '1.3.0';
+    const VERSION = '0.1.0';
     const RELEASES_API = 'https://api.github.com/repos/unctom/beemsms/releases/latest';
     const RELEASES_PAGE = 'https://github.com/unctom/beemsms/releases';
     const CACHE_SECONDS = 72000;
