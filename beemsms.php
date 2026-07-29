@@ -432,6 +432,48 @@ function beemsms_output($vars)
         . '</p>';
 
     echo '<script>
+$(document).ready(function() {
+    var phoneInput = $("#beem_test_phone");
+    if (phoneInput.length && typeof $.fn.intlTelInput === "function") {
+        phoneInput.intlTelInput("setCountry", "tz");
+    }
+    
+    phoneInput.on("blur", function() {
+        var val = $(this).val().trim();
+        if (val !== "") {
+            var raw = val.replace(/[^\d+]/g, "");
+            var clean = raw;
+            if (raw.indexOf("0") === 0) clean = "255" + raw.substring(1);
+            else if (raw.indexOf("255") !== 0 && raw.length <= 9) clean = "255" + raw;
+            
+            if (clean.length >= 10 && clean.length <= 15) {
+                $(this).css("border-color", "green");
+                $("#beem_phone_helper").text("Valid number format").css("color", "green");
+            } else {
+                $(this).css("border-color", "red");
+                $("#beem_phone_helper").text("Invalid phone number length").css("color", "red");
+            }
+        } else {
+            $(this).css("border-color", "");
+            $("#beem_phone_helper").text("Format: 746 789 890").css("color", "#999");
+        }
+    });
+
+    var msgInput = $("#beem_test_message");
+    var charCount = $("#beem_char_count");
+    if (msgInput.length) {
+        msgInput.on("input", function() {
+            var len = $(this).val().length;
+            var segments = Math.ceil(len / 160) || 1;
+            if (len === 0) segments = 1;
+            charCount.text(len + " chars (" + segments + " SMS)");
+        });
+    }
+
+    $("form:has(#beem_btn_send)").on("submit", function() {
+        $("#beem_btn_send").prop("disabled", true).text("Sending...");
+    });
+});
 function beemShowTab(k) {
     var panes = document.querySelectorAll(".beem-pane");
     for (var i = 0; i < panes.length; i++) { panes[i].style.display = "none"; }
