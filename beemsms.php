@@ -510,13 +510,26 @@ function beemShowTab(k) {
         . '<button type="submit" class="btn btn-default">Restore default templates</button>'
         . '</form></div>';
 
-    echo '<div class="beem-pane" id="beem-pane-logs" style="padding-top:15px;' . ($activeTab === 'logs' ? '' : 'display:none;') . '">'
-        . '<form method="post" action="' . $e($modulelink) . '" class="form-inline" style="margin-bottom:12px;">'
+    echo '<div class="beem-pane" id="beem-pane-send" style="padding-top:15px;' . ($activeTab === 'send' ? '' : 'display:none;') . '">';
+    if ($sendInlineNotice !== '') {
+        echo '<div class="alert alert-' . $sendInlineClass . '">' . $sendInlineNotice . '</div>';
+    }
+    echo '<form method="post" action="' . $e($modulelink) . '" style="margin-bottom:20px; max-width:600px;">'
         . '<input type="hidden" name="beem_action" value="send_test">'
-        . '<input type="text" name="test_phone" id="beem_test_phone" class="form-control" placeholder="746 789 890">'
-        . '<input type="text" name="test_message" class="form-control" placeholder="Message" style="width:420px;"> '
-        . '<button type="submit" class="btn btn-default">Send SMS</button>'
-        . '</form>'
+        . '<div class="form-group">'
+        . '<label style="display:block; font-weight:bold; margin-bottom:5px;">Recipient Phone Number</label>'
+        . '<input type="text" name="test_phone" id="beem_test_phone" class="form-control" placeholder="746 789 890" style="max-width:300px;">'
+        . '<span id="beem_phone_helper" style="display:block; font-size:11px; margin-top:3px; color:#999;">Format: 746 789 890</span>'
+        . '</div>'
+        . '<div class="form-group" style="margin-top:15px;">'
+        . '<label style="display:block; font-weight:bold; margin-bottom:5px;">Message Content</label>'
+        . '<textarea name="test_message" id="beem_test_message" class="form-control" placeholder="Type your message here..." rows="4"></textarea>'
+        . '<div id="beem_char_count" style="font-size:11px; color:#666; text-align:right; margin-top:3px;">0 chars (1 SMS)</div>'
+        . '</div>'
+        . '<button type="submit" id="beem_btn_send" class="btn btn-primary" style="margin-top:10px;">Send SMS</button>'
+        . '</form></div>';
+
+    echo '<div class="beem-pane" id="beem-pane-logs" style="padding-top:15px;' . ($activeTab === 'logs' ? '' : 'display:none;') . '">'
         . '<table class="datatable" width="100%" cellspacing="1"><tr>'
         . '<th width="125">Time</th><th width="140">Event</th><th width="65">Client</th><th width="110">Number</th><th width="85">Status</th><th>Message</th><th width="75"></th></tr>';
 
