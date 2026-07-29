@@ -365,20 +365,22 @@ function beemsms_output($vars)
             . '<script>setTimeout(function(){ var el = document.getElementById("beem-notice"); if (el) el.style.display = "none"; }, 5000);</script>';
     }
 
-    $updateStatus = Updater::status();
-    $updateHtml = '';
-    if (UpdateChecker::updateAvailable(UpdateChecker::cached())) {
-        $updateInfo = UpdateChecker::cached();
-        $updateHtml = ' <a href="' . $e($updateInfo['url']) . '" target="_blank" class="label label-warning">Update v' . $e($updateInfo['latest']) . ' available</a>';
+    $displayVersion = UpdateChecker::VERSION;
+    if (isset($justSwapped) && $justSwapped) {
+        $newContent = @file_get_contents(__DIR__ . '/lib/UpdateChecker.php');
+        if ($newContent && preg_match('/const VERSION\s*=\s*[\'"]([^\'"]+)[\'"]/', $newContent, $m)) {
+            $displayVersion = $m[1];
+        }
     }
 
+    $updateStatus = Updater::status();
     $updateActionHtml = '';
     if ($updateStatus['updatable'] && !$justSwapped) {
-        $updateActionHtml .= ' <form method="post" action="' . $e($modulelink) . '" style="display:inline;" '
+        $updateActionHtml .= ' <span class="label label-warning">v' . $e($updateStatus['latest']) . ' available</span> <form method="post" action="' . $e($modulelink) . '" style="display:inline;" '
             . 'onsubmit="return confirm(\'Download and install v' . $e($updateStatus['latest']) . '? The current version is backed up and restored automatically if the update fails.\');">'
             . '<input type="hidden" name="beem_action" value="apply_update">'
             . '<input type="hidden" name="tab" value="' . $e($activeTab) . '">'
-            . '<button type="submit" class="btn btn-primary btn-xs">Update now &rarr; v' . $e($updateStatus['latest']) . '</button>'
+            . '<button type="submit" class="btn btn-primary btn-xs">Update</button>'
             . '</form>';
     }
     if ($updateStatus['has_backup']) {
