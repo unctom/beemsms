@@ -398,7 +398,7 @@ function beemsms_output($vars)
         if ($balanceInfo['balance'] !== null) {
             $chipLabel = '<span class="label label-' . ($balanceInfo['success'] ? 'info' : 'warning') . '" style="vertical-align:middle;" title="Last checked '
                 . $e($balanceInfo['checked_at'] ? date('j M H:i', (int) $balanceInfo['checked_at']) : 'never') . '">'
-                . 'Balance: ' . $e(number_format((float) $balanceInfo['balance'], 2)) . '</span>';
+                . 'Balance: ' . $e(number_format((float) $balanceInfo['balance'], 2)) . ' SMS Credits</span>';
         } else {
             $chipLabel = '<span class="label label-warning" style="vertical-align:middle;">Balance unavailable</span>';
         }
